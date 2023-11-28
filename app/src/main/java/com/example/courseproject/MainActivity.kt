@@ -1,6 +1,7 @@
 package com.example.courseproject
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
@@ -18,22 +19,32 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var btnsignup: Button
     private lateinit var btnlogin: Button
+    private lateinit var receiver: AirplaneModeChangeReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        receiver = AirplaneModeChangeReceiver()
+        IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED).also { registerReceiver(receiver, it) }
+
         btnsignup = findViewById(R.id.button)
         btnlogin = findViewById(R.id.button2)
 
-        btnsignup.setOnClickListener{
-            val intent = Intent(this,signup::class.java)
+        btnsignup.setOnClickListener {
+            val intent = Intent(this, signup::class.java)
             startActivity(intent)
         }
+
         btnlogin.setOnClickListener {
-            val intent = Intent(this,login::class.java)
+            val intent = Intent(this, login::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(receiver)
     }
 }
 
