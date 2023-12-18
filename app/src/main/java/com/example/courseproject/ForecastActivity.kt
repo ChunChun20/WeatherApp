@@ -40,6 +40,7 @@ class ForecastActivity : AppCompatActivity() {
 
         toMainPage.setOnClickListener{
             val intent = Intent(this, MainPage::class.java)
+            intent.putExtra("CITY_NAME",message)
             startActivity(intent)
         }
 

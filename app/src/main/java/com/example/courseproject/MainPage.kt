@@ -35,7 +35,7 @@ import java.util.Locale
 
 class MainPage : AppCompatActivity() {
 
-    var CITY: String = "varna"
+    var CITY: String = "sofia"
     val API: String = "d34dd910c8867e7be19902be7bb7109d"
     lateinit var inputCity:EditText
     lateinit var submitCity:Button
@@ -55,7 +55,8 @@ class MainPage : AppCompatActivity() {
         submitCity = findViewById(R.id.submit_city)
         toForecast = findViewById(R.id.toForecast)
 
-
+        val receivedData = intent.getStringExtra("CITY_NAME").toString()
+        CITY = receivedData
 
         submitCity.setOnClickListener {
             CITY = inputCity.text.toString()

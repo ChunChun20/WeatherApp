@@ -30,6 +30,7 @@ class login : AppCompatActivity() {
     private lateinit var edituser: EditText
     private lateinit var editpword: EditText
     private lateinit var db: DBHelper
+    private var city = "sofia"
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -42,7 +43,9 @@ class login : AppCompatActivity() {
         editpword = findViewById(R.id.editTextTextPassword3)
         db = DBHelper(this)
 
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
 
 
         getCurrentLocation()
@@ -60,6 +63,7 @@ class login : AppCompatActivity() {
                 if (checkuser==true){
                     Toast.makeText(this,"Login successful",Toast.LENGTH_SHORT).show()
                     val intent = Intent(applicationContext,MainPage::class.java)
+                    intent.putExtra("CITY_NAME",city)
                     startActivity(intent)
                 }
                 else {
@@ -90,7 +94,7 @@ class login : AppCompatActivity() {
             return
         }
 
-        Toast.makeText(this, "Clown app", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "the best app", Toast.LENGTH_SHORT).show()
 
         // Permission is granted, proceed to get the current location
         fusedLocationClient.lastLocation
@@ -105,6 +109,8 @@ class login : AppCompatActivity() {
 
                     // Display the city name
                     Toast.makeText(this, "Current City: $cityName", Toast.LENGTH_SHORT).show()
+                    city = cityName
+
                 } else {
                     Toast.makeText(this, "Location is null", Toast.LENGTH_SHORT).show()
                 }
